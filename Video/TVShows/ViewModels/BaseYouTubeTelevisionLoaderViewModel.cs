@@ -1,8 +1,9 @@
 ﻿namespace MediaHelpers.YouTubeLibrary.Video.TVShows.ViewModels;
-public abstract class BaseYouTubeTelevisionLoaderViewModel<E> : YouTubeMainLoaderViewModel<E>
+public abstract class BaseYouTubeTelevisionLoaderViewModel<E, T> : YouTubeMainLoaderViewModel<E>
     where E: class, IEpisodeTable
+    where T: class, IBasicTelevisionModel, new()
 {
-    private readonly IBasicTelevisionRemoteControlHostService _hostService;
+    private readonly IBasicTelevisionRemoteControlHostService<T> _hostService;
     private readonly IBasicTelevisionLoaderLogic<E> _loadLogic;
     private readonly ITelevisionVideoLoader<E> _reload;
     private readonly TelevisionContainerClass<E> _containerClass;
@@ -14,7 +15,7 @@ public abstract class BaseYouTubeTelevisionLoaderViewModel<E> : YouTubeMainLoade
         IPausePlayer player,
         //TelevisionHolidayViewModel holidayViewModel,
         TelevisionContainerClass<E> containerClass,
-        IBasicTelevisionRemoteControlHostService hostService,
+        IBasicTelevisionRemoteControlHostService<T> hostService,
         //ITelevisionListLogic listLogic,
         ISystemError error,
         IToast toast,
@@ -159,17 +160,10 @@ public abstract class BaseYouTubeTelevisionLoaderViewModel<E> : YouTubeMainLoade
     }
     protected Task SendOtherDataAsync()
     {
-        int startAt;
-        if (SelectedItem!.StartAt.HasValue == false)
-        {
-            startAt = 0;
-        }
-        else
-        {
-            startAt = SelectedItem.StartAt.Value; //i think.
-        }
-        return _hostService.SendProgressAsync(new TelevisionModel(SelectedItem.ShowTable.ShowName, ProgressText, SelectedItem.Holiday!, CanPlay == false, startAt, SelectedItem.CanEdit));
+        T television = GetTelevisionDataToSend();
+        return _hostService.SendProgressAsync(television);
     }
+    protected abstract T GetTelevisionDataToSend();
     public async Task SendProgressAsync()
     {
         await SendOtherDataAsync(); //has to be this way so the ui can call the method to send.

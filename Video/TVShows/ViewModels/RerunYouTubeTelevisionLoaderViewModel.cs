@@ -1,5 +1,5 @@
 ﻿namespace MediaHelpers.YouTubeLibrary.Video.TVShows.ViewModels;
-public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoaderViewModel<E>
+public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoaderViewModel<E, BasicTelevisionModel>
     where E: class, IEpisodeTable
 {
     private readonly IRerunTelevisionLoaderLogic<E> _loadLogic;
@@ -132,5 +132,15 @@ public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoa
     protected override async Task FinishModifyingHoliday(IEpisodeTable tempItem, EnumTelevisionHoliday holiday)
     {
         await FinishEditingEpisodeAsync(tempItem, holiday);
+    }
+    protected override BasicTelevisionModel GetTelevisionDataToSend()
+    {
+        BasicTelevisionModel output = new();
+        output.ShowName = SelectedItem!.ShowTable.ShowName;
+        output.Progress = ProgressText;
+        output.Holiday = SelectedItem.Holiday;
+        output.CanEdit = SelectedItem.CanEdit; //for now.
+        output.NeedsStart = false; //never needs start for this since its reruns.  firstrun can vary.  plus send other information as well.
+        return output;
     }
 }

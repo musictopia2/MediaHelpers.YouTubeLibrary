@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <Version>8.0.1</Version>
+	  <Version>8.0.2</Version>
   </PropertyGroup>
 
 
@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommonBasicLibraries" Version="8.0.4" />
-    <PackageReference Include="MediaHelpers.CoreLibrary" Version="8.0.39" />
+    <PackageReference Include="MediaHelpers.CoreLibrary" Version="8.0.41" />
     <PackageReference Include="YouTubeBlazorLibrary" Version="8.0.5" />
   </ItemGroup>
 
