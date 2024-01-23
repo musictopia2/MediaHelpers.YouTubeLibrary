@@ -158,7 +158,7 @@ public abstract class BaseYouTubeTelevisionLoaderViewModel<E, T> : YouTubeMainLo
             Skips = [skip];
         }
     }
-    protected Task SendOtherDataAsync()
+    protected virtual Task SendOtherDataAsync() //needs to be virtual so the firstrun can override and do other things.
     {
         T television = GetTelevisionDataToSend();
         return _hostService.SendProgressAsync(television);

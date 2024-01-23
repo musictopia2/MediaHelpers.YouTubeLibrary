@@ -16,6 +16,7 @@ public abstract class YouTubeMainLoaderViewModel<V>(IExit exit, IPausePlayer pla
      //somebody needs to set this to allow the youtube player to play/stop.
     //anything else needed requires delegates as well.
     public int VideoPosition { get; set; } //this will need to be set somehow (?)
+    public int VideoLength { get; set; } //this is needed so firstrun processes can do something with the information.
     public string VideoID { get; set; } = "";
     public int ResumeSecs { get; set; }
     public abstract bool CanPlay { get; }
