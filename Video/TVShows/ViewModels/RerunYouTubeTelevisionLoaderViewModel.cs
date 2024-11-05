@@ -44,11 +44,11 @@ public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoa
             _wasHoliday = temps is not EnumTelevisionHoliday.None; //its depend
         }
     }
-    protected override async Task FinishEditEpisodeLaterAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday)
+    protected override async Task FinishEditEpisodeLaterAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday, EnumNextMode mode)
     {
-        await FinishEditingEpisodeAsync(tempItem, holiday);
+        await FinishEditingEpisodeAsync(tempItem, holiday, mode);
     }
-    private async Task FinishEditingEpisodeAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday)
+    private async Task FinishEditingEpisodeAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday, EnumNextMode mode)
     {
         ProcessHoliday(tempItem);
         bool manuallyChose = holiday != EnumTelevisionHoliday.None;
@@ -68,13 +68,13 @@ public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoa
                 _holidayViewModel.RemoveHolidayEpisode(tempItem);
             }
         }
-        await StartNextEpisodeAsync(tempItem, holiday);
+        await StartNextEpisodeAsync(tempItem, holiday, mode);
     }
-    protected override async Task FinishSkippingEpisodeForeverAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday)
+    protected override async Task FinishSkippingEpisodeForeverAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday, EnumNextMode mode)
     {
-        await FinishEditingEpisodeAsync(tempItem, holiday);
+        await FinishEditingEpisodeAsync(tempItem, holiday, mode);
     }
-    private async Task SkipEpisodeTemporarilyAsync()
+    private async Task SkipEpisodeTemporarilyAsync(EnumNextMode mode)
     {
         var tempItem = StopEpisode();
         await _loadLogic.TemporarilySKipEpisodeAsync(tempItem);
@@ -92,7 +92,7 @@ public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoa
         }
         //may have options to completely close out and not even choose another episode
         //await StartNextEpisodeAsync(tempItem, tempItem.Holiday!.Value);
-        await FinishEditingEpisodeAsync(tempItem, tempItem.Holiday!.Value);
+        await FinishEditingEpisodeAsync(tempItem, tempItem.Holiday!.Value, mode);
     }
     private async Task<bool> CheckNextAsync()
     {
@@ -105,7 +105,7 @@ public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoa
         }
         return true;
     }
-    protected override async Task StartNextEpisodeAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday)
+    protected override async Task StartNextEpisodeAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday, EnumNextMode mode)
     {
         IShowTable show = tempItem.ShowTable;
         bool manuallyChose = holiday != EnumTelevisionHoliday.None;
@@ -129,9 +129,9 @@ public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoa
         }
         LoadNewEpisode();
     }
-    protected override async Task FinishModifyingHoliday(IEpisodeTable tempItem, EnumTelevisionHoliday holiday)
+    protected override async Task FinishModifyingHoliday(IEpisodeTable tempItem, EnumTelevisionHoliday holiday, EnumNextMode mode)
     {
-        await FinishEditingEpisodeAsync(tempItem, holiday);
+        await FinishEditingEpisodeAsync(tempItem, holiday, mode);
     }
     protected override BasicTelevisionModel GetTelevisionDataToSend()
     {

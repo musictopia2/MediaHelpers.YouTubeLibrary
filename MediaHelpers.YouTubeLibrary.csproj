@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <Version>8.0.7</Version>
+	  <Version>8.0.8</Version>
   </PropertyGroup>
 
 
@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommonBasicLibraries" Version="8.0.28" />
-    <PackageReference Include="MediaHelpers.CoreLibrary" Version="8.0.53" />
+    <PackageReference Include="CommonBasicLibraries" Version="8.0.45" />
+    <PackageReference Include="MediaHelpers.CoreLibrary" Version="8.0.57" />
     <PackageReference Include="YouTubeBlazorLibrary" Version="8.0.7" />
   </ItemGroup>
 
