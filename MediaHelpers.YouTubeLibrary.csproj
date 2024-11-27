@@ -1,21 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Razor">
-
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <Version>8.0.8</Version>
+    <Version>9.0.1</Version>
   </PropertyGroup>
-
-
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="CommonBasicLibraries" Version="8.0.45" />
-    <PackageReference Include="MediaHelpers.CoreLibrary" Version="8.0.57" />
-    <PackageReference Include="YouTubeBlazorLibrary" Version="8.0.7" />
+    <PackageReference Include="CommonBasicLibraries" Version="9.0.1" />
+    <PackageReference Include="MediaHelpers.CoreLibrary" Version="9.0.1" />
+    <PackageReference Include="YouTubeBlazorLibrary" Version="9.0.1" />
   </ItemGroup>
-
 </Project>
