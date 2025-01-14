@@ -7,11 +7,11 @@ public static class ServiceExtensions
     {
         services.RegisterTelevisionContainer<E>()
             .RegisterCoreHolidayTelevisionServices<E>()
-            .RegisterNextReRunLogic<E>()
+            .RegisterNextReRunTelevisionLogic<E>()
             .AddSingleton<RerunYouTubeTelevisionLoaderViewModel<E>>()
             .AddSingleton<IVideoPlayerViewModel>(pp => pp.GetRequiredService<RerunYouTubeTelevisionLoaderViewModel<E>>())
             .AddSingleton<ITelevisionLoaderViewModel>(pp => pp.GetRequiredService<RerunYouTubeTelevisionLoaderViewModel<E>>())
-            .RegisterRerunLoaderLogic<E>()
+            .RegisterRerunTelevisionLoaderLogic<E>()
             .RegisterYouTubeLoaderBaseProcesses<T, E>();
         return services;
     }

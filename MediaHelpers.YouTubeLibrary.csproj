@@ -5,13 +5,18 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Version>9.0.1</Version>
+    <RunPostBuildAppCondition Condition="'$(Configuration)' == 'Release'">true</RunPostBuildAppCondition>
+    <FeedType>Public</FeedType>
   </PropertyGroup>
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommonBasicLibraries" Version="9.0.1" />
-    <PackageReference Include="MediaHelpers.CoreLibrary" Version="9.0.1" />
+    <PackageReference Include="CommonBasicLibraries" Version="9.0.13" />
+    <PackageReference Include="MediaHelpers.CoreLibrary" Version="9.0.37" />
     <PackageReference Include="YouTubeBlazorLibrary" Version="9.0.1" />
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="C:\VS\OneNet\Apps\CommandLines\PostBuildPackageHandler\bin\Release\net9.0\PostBuildPackageHandler.exe $(ProjectName) $(ProjectDir) $(ProjectFileName) $(TargetDir)" Condition="'$(Configuration)' == 'Release' and '$(RunPostBuildAppCondition)' == 'true'" />
+  </Target>
 </Project>
