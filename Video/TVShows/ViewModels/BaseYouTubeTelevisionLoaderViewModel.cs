@@ -47,6 +47,7 @@ public abstract class BaseYouTubeTelevisionLoaderViewModel<E, T> : YouTubeMainLo
     {
         return episode.Holiday != EnumTelevisionHoliday.None;
     }
+    protected abstract Task StartNextEpisodeAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday);
     protected abstract Task FinishModifyingHoliday(IEpisodeTable tempItem, EnumTelevisionHoliday holiday, EnumNextMode nextMode);
     private async Task ModifyHolidayAsync(HolidayModel holiday)
     {
@@ -61,7 +62,6 @@ public abstract class BaseYouTubeTelevisionLoaderViewModel<E, T> : YouTubeMainLo
         //await StartNextEpisodeAsync(tempItem, previous);
         await FinishModifyingHoliday(tempItem, previous, holiday.NextMode);
     }
-    protected abstract Task StartNextEpisodeAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday, EnumNextMode nextMode);
     protected abstract Task FinishEditEpisodeLaterAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday, EnumNextMode nextMode);
     private async Task EditEpisodeLaterAsync(EnumNextMode mode)
     {

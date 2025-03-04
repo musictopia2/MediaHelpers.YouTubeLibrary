@@ -1,4 +1,6 @@
-﻿namespace MediaHelpers.YouTubeLibrary.Video.TVShows.ViewModels;
+﻿using BasicBlazorLibrary.Components.AutoCompleteHelpers;
+
+namespace MediaHelpers.YouTubeLibrary.Video.TVShows.ViewModels;
 public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoaderViewModel<E, BasicTelevisionModel>
     where E: class, IEpisodeTable
 {
@@ -57,6 +59,12 @@ public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoa
             _exit.ExitApp();
             return;
         }
+        if (mode == EnumNextMode.CloseOut)
+        {
+            Execute.OnUIThread(_exit.ExitApp);
+            return;
+            //if you chose holiday and chose to close out, hopefully when you go back in again, you have to choose whether you want holiday or not again.
+        }
         if (_wasHoliday)
         {
             if (_holidayViewModel.IsLoaded == false)
@@ -68,7 +76,7 @@ public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoa
                 _holidayViewModel.RemoveHolidayEpisode(tempItem);
             }
         }
-        await StartNextEpisodeAsync(tempItem, holiday, mode);
+        await StartNextEpisodeAsync(tempItem, holiday);
     }
     protected override async Task FinishSkippingEpisodeForeverAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday, EnumNextMode mode)
     {
@@ -105,7 +113,8 @@ public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoa
         }
         return true;
     }
-    protected override async Task StartNextEpisodeAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday, EnumNextMode mode)
+
+    protected override async Task StartNextEpisodeAsync(IEpisodeTable tempItem, EnumTelevisionHoliday holiday)
     {
         IShowTable show = tempItem.ShowTable;
         bool manuallyChose = holiday != EnumTelevisionHoliday.None;
@@ -143,4 +152,5 @@ public class RerunYouTubeTelevisionLoaderViewModel<E> : BaseYouTubeTelevisionLoa
         output.NeedsStart = false; //never needs start for this since its reruns.  firstrun can vary.  plus send other information as well.
         return output;
     }
+
 }
