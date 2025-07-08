@@ -15,12 +15,7 @@
         @ref=_player
         ProgressAction="ShowProgressAsync"
         VideoEnded="DataContext!.VideoFinishedAsync">
-        <span class="progress">
+        <span style="font-size: 3rem;  font-weight: bold;">
             @DataContext!.ProgressText
         </span>
-        @* <VideoButton OnClick="DataContext.CloseScreenAsync">
-            Close
-        </VideoButton> *@
-        
-        
 </YouTubeFullScreenComponent>
